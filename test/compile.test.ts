@@ -63,6 +63,24 @@ describe('special compile', () => {
     const code = compile(sourceCode, '.a')
     expect(code).toBe('.a:hover{color: red;}')
   })
+  test('if scoped: true', () => {
+    const sourceCode = `
+      ${true} {
+        color: red;
+      }
+    `
+    const code = compile(sourceCode, '.a')
+    expect(code).toBe('.a{color: red;}')
+  })
+  test('if scoped: false', () => {
+    const sourceCode = `
+      ${false} {
+        color: red;
+      }
+    `
+    const code = compile(sourceCode, '.a')
+    expect(code).toBe('')
+  })
 })
 
 describe('without semicolon in the end line', () => {
