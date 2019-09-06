@@ -12,10 +12,6 @@
     "lib": ["esnext", "dom"],
     "esModuleInterop": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "allowSyntheticDefaultImports": true
   }
 }
