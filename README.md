@@ -1,3 +1,6 @@
+# style-hook
+[![Build Status](https://www.travis-ci.org/style-hook/style-hook.svg?branch=master)](https://www.travis-ci.org/style-hook/style-hook)
+
 # install
 use npm
 ```bash
