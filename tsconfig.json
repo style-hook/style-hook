@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "outDir": "./lib",
-    "jsx": "preserve",
+    "jsx": "react",
     "strict": true,
     "lib": ["esnext", "dom"],
     "esModuleInterop": true,

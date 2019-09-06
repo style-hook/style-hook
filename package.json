@@ -9,15 +9,13 @@
   "scripts": {
     "watch": "jest --watch"
   },
-  "peerDependencies": {
-    "react": "^16.9.0"
-  },
-  "dependencies": {
-    "@types/react": "^16.9.2"
-  },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "jest": "^24.9.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
