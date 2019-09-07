@@ -1,5 +1,10 @@
 # style-hook
 [![Build Status](https://www.travis-ci.org/style-hook/style-hook.svg?branch=master)](https://www.travis-ci.org/style-hook/style-hook)
+[![codecov](https://codecov.io/gh/style-hook/style-hook/branch/master/graph/badge.svg)](https://codecov.io/gh/style-hook/style-hook)
+
+* use css in react hook
+* only one api
+* easy to use
 
 # install
 use npm
@@ -24,13 +29,16 @@ export default function() {
   return <div className={className}>hello world</div>
 }
 ```
-## easy to change css properties
+## easy to set css properties
 ``` tsx
 import {useStyle} from 'style-hook'
 export default function(props) {
   const className = useStyle `
-    font-size: ${props.fontSize || 20}px;
-    color: ${props.color || 'blue'};
+    font-size: ${props.fontSize}px;
+    color: ${props.color};
+    ::after {
+      content: "${props.text}";
+    }
   `
   return <div className={className}>hello world</div>
 }
@@ -98,8 +106,8 @@ export default function(props) {
 ```
 
 
-# editor extension
-* will complete soon
+# Highlight and IntelliSense
+* [vscode extension](https://marketplace.visualstudio.com/items?itemName=coppy.style-hook)
 
 # compress es6 template plugin
 * will complete soon
