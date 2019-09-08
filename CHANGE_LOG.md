@@ -1,3 +1,7 @@
+# 1.0.3
+- add style sheets elemtnt a id [style- hook]
+- @media query support
+
 # 1.0.2
 fix bug: className may start with number make the style don't work.
 

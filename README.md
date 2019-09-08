@@ -74,7 +74,18 @@ export default function(props) {
   return <div className={className} onclick={() => setActive(!active)}>change</div>
 }
 ```
-
+## media query support
+```tsx
+import {useStyle} from 'style-hook'
+export default function(props) {
+  const className = useStyle `
+    @media screen and (max-width: 450px) {
+      color: red;
+    }
+  `
+  return <div className={className}>will be red in the phone</div>
+}
+```
 ## have scss features
 ``` tsx
 import {useStyle} from 'style-hook'
@@ -108,6 +119,8 @@ export default function(props) {
 }
 ```
 
+# typescript
+support by default
 
 # Highlight and IntelliSense
 * [vscode extension](https://marketplace.visualstudio.com/items?itemName=coppy.style-hook)
@@ -121,4 +134,3 @@ export default function(props) {
 
 * compile rpx unit
 * compile auto add browser prefix if need
-* media query support
