@@ -1,4 +1,7 @@
+![logo](https://avatars1.githubusercontent.com/u/54980825?s=200&v=4)
+
 # style-hook
+
 [![Build Status](https://www.travis-ci.org/style-hook/style-hook.svg?branch=master)](https://www.travis-ci.org/style-hook/style-hook)
 [![codecov](https://codecov.io/gh/style-hook/style-hook/branch/master/graph/badge.svg)](https://codecov.io/gh/style-hook/style-hook)
 
