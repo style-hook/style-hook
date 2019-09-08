@@ -12,3 +12,8 @@ test('different code should have different hash', () => {
   const className1 = ClassName('console.log(1)')
   expect(className0).not.toBe(className1)
 })
+
+test('don\'t start with number', () => {
+  const className = ClassName('')
+  expect(/^\d/.test(className)).toBeFalsy()
+})

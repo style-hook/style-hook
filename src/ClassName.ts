@@ -14,10 +14,12 @@ function toWord(charCode: number) {
   return String.fromCharCode(97 + charCode)
 }
 
+const ICON_EMOJI = '🎨'  // to avoid className start with number
+
 /** compute the hash of the code simply */
 export default function(code: string, length = 8) {
   const classNameCodes: number[] = new Array(length).fill(code.length)
   for(let i=0; i<code.length; i++)
     classNameCodes[i%length] += code.charCodeAt(i)
-  return classNameCodes.map(toWord).join('')
+  return ICON_EMOJI + classNameCodes.map(toWord).join('')
 }

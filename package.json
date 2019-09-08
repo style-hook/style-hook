@@ -1,6 +1,6 @@
 {
   "name": "style-hook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "use css in js with react hook",
   "main": "dist/api.js",
   "files": ["dist", "README.md"],
