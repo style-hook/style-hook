@@ -124,3 +124,59 @@ describe('with any selector', () => {
   //   expect(code).toBe('html{color: red;}')
   // })
 })
+
+describe('@media test', () => {
+  test('with one layout', () => {
+    const sourceCode = `
+      @media screen and (min-width: 900px) {
+        color: red;
+      }
+    `
+    const code = compile(sourceCode, '.abc')
+    expect(code).toBe([
+      '@media screen and (min-width: 900px){',
+      '.abc{color: red;}',
+      '}',
+    ].join('\n'))
+  })
+  test('with multiple layout', () => {
+    const sourceCode = `
+      .a {
+        color: blue;
+        @media screen and (min-width: 900px) {
+          color: red;
+          .b {
+            color: yellow;
+          }
+        }
+      }
+    `
+    const code = compile(sourceCode, '.abc')
+    expect(code).toBe([
+      '.abc .a{color: blue;}',
+      '@media screen and (min-width: 900px){',
+      '.abc .a{color: red;}',
+      '.abc .a .b{color: yellow;}',
+      '}',
+    ].join('\n'))
+  })
+  test('with many media queries', () => {
+    const sourceCode = `
+      @media screen and (min-width: 900px) {
+        color: red;
+      }
+      @media screen and (max-width: 450px) {
+        color: blue;
+      }
+    `
+    const code = compile(sourceCode, '.abc')
+    expect(code).toBe([
+      '@media screen and (min-width: 900px){',
+      '.abc{color: red;}',
+      '}',
+      '@media screen and (max-width: 450px){',
+      '.abc{color: blue;}',
+      '}',
+    ].join('\n'))
+  })
+})
