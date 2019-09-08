@@ -1,8 +1,14 @@
 {
   "name": "style-hook",
-  "version": "1.0.1",
+  "version": "1.0.2 ",
   "description": "use css in js with react hook",
   "main": "dist/api.js",
+  "keywords": [
+    "style hook",
+    "style-hook",
+    "react hook",
+    "css hook"
+  ],
   "files": ["dist", "README.md"],
   "repository": "https://github.com/style-hook/style-hook",
   "author": "coppy",
@@ -11,7 +17,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "coverage": "jest --coverage",
-    "compile": "tsc -p ."
+    "prepublish": "tsc -p ."
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
