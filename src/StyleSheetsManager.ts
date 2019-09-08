@@ -1,5 +1,6 @@
-const styleEl = document.createElement('style')
-document.head.appendChild(styleEl)
+const styleElement = document.createElement('style')
+styleElement.id = 'style-hook'
+document.head.appendChild(styleElement)
 
 type Library = {
   [selector: string]: {
@@ -15,7 +16,7 @@ export default {
       return void this.library[id].onLine ++
     const textNode = document.createTextNode(code)
     this.library[id] = { onLine: 1, node: textNode }
-    styleEl.append(textNode)
+    styleElement.append(textNode)
   },
   unUseStyle(id: string) {
     const style = this.library[id]
