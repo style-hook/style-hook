@@ -132,5 +132,9 @@ support by default
 * useCssModule
 * useGlobalStyle
 
-* compile rpx unit
+* compile rpx unit (The width of the screen / 750)
 * compile auto add browser prefix if need
+- @keyframes support
+
+# support me
+if you like this project, star it, let more one konw.

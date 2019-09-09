@@ -1,3 +1,7 @@
+# 1.0.4
+- lazy compile, store the code which have compiled but not use now.
+- fix bug: can't work in safair.
+
 # 1.0.3
 - add style sheets elemtnt a id [style- hook]
 - @media query support
