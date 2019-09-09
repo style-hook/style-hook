@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { act } from 'react-dom/test-utils'
 import { useStyle } from '../src/api'
 import StyleSheetsManager from '../src/StyleSheetsManager'
 
 let container: HTMLDivElement
-const styleEl = document.querySelector('style')!
+const styleEl = StyleSheetsManager.element
 
 function render(element: JSX.Element) {
   act(() => { ReactDOM.render(element, container) })
