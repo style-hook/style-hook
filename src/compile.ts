@@ -1,8 +1,10 @@
 /** compile the source code to css */
 export default function(code: string, selector: string) {
-  const codes = code.trim().split(/(?<=[;{}])(\b|\B)\s*/).filter(x => x)
+  const codes = code.trim()
+    .replace(/\s*([;{}])\s*/g, '$1\n')
+    .split(/\n/)
+    .filter(x => x)
   type Styles = {[selector: string]: string}
-  // TODO: reconsitution, add styles to mediaStyles
   const mediaStyles = {} as {[meida: string]: Styles}
   const selectorStack: string[] = [] // not include currentSelector
   let currentSelector = selector
@@ -14,6 +16,7 @@ export default function(code: string, selector: string) {
     return mediaStyles[currentMedia]
   }
   const toChil = (chilSelector: string): void => {
+    // TODO: split with ","
     if(chilSelector.startsWith('@media')) {
       currentMedia = chilSelector
       if(!mediaStyles[currentMedia])
