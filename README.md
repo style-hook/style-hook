@@ -132,9 +132,16 @@ support by default
 * useCssModule
 * useGlobalStyle
 
-* compile rpx unit (The width of the screen / 750)
+* plguin, custom your compile
+* color palette
+
+* compile rpx unit (The width of the screen / 750 in phone, rpx / 2 in pc)
 * compile auto add browser prefix if need
 - @keyframes support
 
 # support me
 if you like this project, star it, let more one konw.
+
+# Credits
+* [styled-components](https://github.com/styled-components/styled-components)
+* [stylis](https://github.com/thysultan/stylis.js)
