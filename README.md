@@ -125,8 +125,8 @@ support by default
 # Highlight and IntelliSense
 * [vscode extension](https://marketplace.visualstudio.com/items?itemName=coppy.style-hook)
 
-# compress es6 template plugin
-* will complete soon
+# compress es6 tagged template plugin
+* [babel-plugin-style-hook](https://github.com/style-hook/babel-plugin-style-hook)
 
 # todo list
 see [TODO](./TODO)
