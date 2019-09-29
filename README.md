@@ -129,15 +129,7 @@ support by default
 * will complete soon
 
 # todo list
-* useCssModule
-* useGlobalStyle
-
-* plguin, custom your compile
-* color palette
-
-* compile rpx unit (The width of the screen / 750 in phone, rpx / 2 in pc)
-* compile auto add browser prefix if need
-- @keyframes support
+see [TODO](./TODO)
 
 # support me
 if you like this project, star it, let more one konw.
