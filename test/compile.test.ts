@@ -9,29 +9,29 @@ test('compile with empty code', () => {
 describe('layout test', () => {
   test('single layout compile', () => {
     const sourceCode = `
-      color: red;
-      margin: 50px;
+      color:red;
+      margin:50px;
     `
     const code = compile(sourceCode, '#root')
-    expect(code).toBe('#root{color: red;margin: 50px;}')
+    expect(code).toBe('#root{color:red;margin:50px;}')
   })
   test('multiple layer compile', () => {
     const sourceCode = `
-      color: red;
+      color:red;
       .box {
-        margin: 50px;
+        margin:50px;
         .mini {
-          height: 30px;
+          height:30px;
         }
       }
-      font-size: 20px;
+      font-size:20px;
     `
     const code = compile(sourceCode, '#root')
     expect(code).toBe([
-      '#root{color: red;font-size: 20px;}',
-      '#root .box{margin: 50px;}',
-      '#root .box .mini{height: 30px;}',
-    ].join('\n'))
+      '#root{color:red;font-size:20px;}',
+      '#root .box{margin:50px;}',
+      '#root .box .mini{height:30px;}',
+    ].join(''))
   })
 })
 
@@ -39,144 +39,126 @@ describe('special compile', () => {
   test('start with &', () => {
     const sourceCode = `
       &.b {
-        color: red;
+        color:red;
       }
     `
     const code = compile(sourceCode, '.a')
-    expect(code).toBe('.a.b{color: red;}')
+    expect(code).toBe('.a.b{color:red;}')
   })
   test('end with &', () => {
     const sourceCode = `
       .parent & {
-        color: red;
+        color:red;
       }
     `
     const code = compile(sourceCode, '.chil')
-    expect(code).toBe('.parent .chil{color: red;}')
+    expect(code).toBe('.parent .chil{color:red;}')
   })
   test('start with ":"', () => {
     const sourceCode = `
       :hover {
-        color: red;
+        color:red;
       }
     `
     const code = compile(sourceCode, '.a')
-    expect(code).toBe('.a:hover{color: red;}')
-  })
-  test('if scoped: true', () => {
-    const sourceCode = `
-      ${true} {
-        color: red;
-      }
-    `
-    const code = compile(sourceCode, '.a')
-    expect(code).toBe('.a{color: red;}')
-  })
-  test('if scoped: false', () => {
-    const sourceCode = `
-      ${false} {
-        color: red;
-      }
-    `
-    const code = compile(sourceCode, '.a')
-    expect(code).toBe('')
+    expect(code).toBe('.a:hover{color:red;}')
   })
 })
 
 describe('without semicolon in the end line', () => {
   test('single layout', () => {
     const sourceCode = `
-      color: red;
-      margin: 50px
+      color:red;
+      margin:50px
     `
     const code = compile(sourceCode, '#root')
-    expect(code).toBe('#root{color: red;margin: 50px;}')
+    expect(code).toBe('#root{color:red;margin:50px;}')
   })
   test('multiple layout', () => {
     const sourceCode = `
-      color: blue;
+      color:blue;
       .box {
-        color: red
+        color:red
       }
-      margin: 50px
+      margin:50px
     `
     const code = compile(sourceCode, '#root')
-    expect(code).toBe('#root{color: blue;margin: 50px;}\n#root .box{color: red;}')
+    expect(code).toBe('#root{color:blue;margin:50px;}#root .box{color:red;}')
   })
 })
 
 describe('with any selector', () => {
-  const sourceCode = `color: red`
+  const sourceCode = `color:red`
   test('with tag selector', () => {
     const code = compile(sourceCode, 'html')
-    expect(code).toBe('html{color: red;}')
+    expect(code).toBe('html{color:red;}')
   })
   test('with class selector', () => {
     const code = compile(sourceCode, '.red')
-    expect(code).toBe('.red{color: red;}')
+    expect(code).toBe('.red{color:red;}')
   })
   test('with id selector', () => {
     const code = compile(sourceCode, '#root')
-    expect(code).toBe('#root{color: red;}')
+    expect(code).toBe('#root{color:red;}')
   })
   // test('without any selector', () => {
   //   const code = compile(sourceCode)
-  //   expect(code).toBe('html{color: red;}')
+  //   expect(code).toBe('html{color:red;}')
   // })
 })
 
 describe('@media test', () => {
   test('with one layout', () => {
     const sourceCode = `
-      @media screen and (min-width: 900px) {
-        color: red;
+      @media screen and (min-width:900px) {
+        color:red;
       }
     `
     const code = compile(sourceCode, '.abc')
     expect(code).toBe([
-      '@media screen and (min-width: 900px){',
-      '.abc{color: red;}',
+      '@media screen and (min-width:900px){',
+      '.abc{color:red;}',
       '}',
-    ].join('\n'))
+    ].join(''))
   })
   test('with multiple layout', () => {
     const sourceCode = `
       .a {
-        color: blue;
-        @media screen and (min-width: 900px) {
-          color: red;
+        color:blue;
+        @media screen and (min-width:900px) {
+          color:red;
           .b {
-            color: yellow;
+            color:yellow;
           }
         }
       }
     `
     const code = compile(sourceCode, '.abc')
     expect(code).toBe([
-      '.abc .a{color: blue;}',
-      '@media screen and (min-width: 900px){',
-      '.abc .a{color: red;}',
-      '.abc .a .b{color: yellow;}',
+      '.abc .a{color:blue;}',
+      '@media screen and (min-width:900px){',
+      '.abc .a{color:red;}',
+      '.abc .a .b{color:yellow;}',
       '}',
-    ].join('\n'))
+    ].join(''))
   })
   test('with many media queries', () => {
     const sourceCode = `
-      @media screen and (min-width: 900px) {
-        color: red;
+      @media screen and (min-width:900px) {
+        color:red;
       }
-      @media screen and (max-width: 450px) {
-        color: blue;
+      @media screen and (max-width:450px) {
+        color:blue;
       }
     `
     const code = compile(sourceCode, '.abc')
     expect(code).toBe([
-      '@media screen and (min-width: 900px){',
-      '.abc{color: red;}',
+      '@media screen and (min-width:900px){',
+      '.abc{color:red;}',
       '}',
-      '@media screen and (max-width: 450px){',
-      '.abc{color: blue;}',
+      '@media screen and (max-width:450px){',
+      '.abc{color:blue;}',
       '}',
-    ].join('\n'))
+    ].join(''))
   })
 })

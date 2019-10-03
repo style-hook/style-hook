@@ -9,7 +9,10 @@
     "react hook",
     "css hook"
   ],
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": "https://github.com/style-hook/style-hook",
   "author": "coppy",
   "license": "MIT",
@@ -17,7 +20,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "coverage": "jest --coverage",
-    "prepare": "tsc -p ."
+    "prepublishOnly": "tsc -p ."
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
@@ -29,5 +32,8 @@
     "ts-jest": "^24.0.2",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "stylis": "^3.5.4"
   }
 }
