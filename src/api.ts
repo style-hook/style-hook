@@ -1,2 +1,2 @@
-export { default as useStyle } from './useStyle'
+export * from './hooks'
 export { default as css } from './css'

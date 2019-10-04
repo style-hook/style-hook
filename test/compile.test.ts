@@ -101,10 +101,11 @@ describe('with any selector', () => {
     const code = compile(sourceCode, '#root')
     expect(code).toBe('#root{color:red;}')
   })
-  // test('without any selector', () => {
-  //   const code = compile(sourceCode)
-  //   expect(code).toBe('html{color:red;}')
-  // })
+  test('without empty selector', () => {
+    const sourceCode = `body{background:#f8f8f8;}`
+    const code = compile(sourceCode, '')
+    expect(code).toBe('body{background:#f8f8f8;}')
+  })
 })
 
 describe('@media test', () => {
