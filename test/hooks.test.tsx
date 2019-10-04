@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { act } from 'react-dom/test-utils'
-import { useStyle, useGlobalStyle } from '../src/hooks'
+import { useStyle, useGlobalStyle, useModuleStyle } from '../src/hooks'
 import StyleSheetsManager from '../src/StyleSheetsManager'
 
 let container: HTMLDivElement
@@ -74,5 +74,33 @@ describe('useGlobalStyle', () => {
     render(<GlobalStyle />)
     render(<></>)
     expect(styleEl.innerHTML).toBe('')
+  })
+})
+
+describe('useModuleStyle', () => {
+  function ModuleStyle(props: {onStyles: (styles: any) => void}) {
+    const styles = useModuleStyle`
+      .a { color: blue }
+      .b::after { color: blue }
+      .c div { width: 11.1px }
+      .a.d, .b.e {
+        .f { opacity: 0.3 }
+      }
+    `
+    props.onStyles(styles)
+    return <></>
+  }
+  test('return module name mapping object', () => {
+    let styles: any = {}
+    render(<ModuleStyle onStyles={s => styles = s} />)
+    expect(Object.keys(styles)).toEqual(['a','b','c','d','e','f'])
+  })
+  test('style contain the mapping name', () => {
+    let styles: any = {}
+    render(<ModuleStyle onStyles={s => styles = s} />)
+    const styleHTML = styleEl.innerHTML
+    Object.keys(styles).forEach(key => {
+      expect(styleHTML).toContain(`.${styles[key]}`)
+    })
   })
 })
