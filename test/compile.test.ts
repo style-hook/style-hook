@@ -163,3 +163,16 @@ describe('@media test', () => {
     ].join(''))
   })
 })
+
+describe('rpx compile', () => {
+  test('2rpx = 1px in iphone6', () => {
+    innerWidth = 375
+    const code = compile('width:20rpx', '')
+    expect(code).toContain('width:10px')
+  })
+  test('relative width 750rpx in any screen', () => {
+    innerWidth = 414
+    const code = compile('width:20rpx', '')
+    expect(code).toContain('width:11px')
+  })
+})
