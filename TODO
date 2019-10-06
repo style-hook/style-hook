@@ -1,9 +1,12 @@
-☐ useCssModule
-☐ useGlobalStyle
+✔ useStyle api
+✔ useModuleStyle api
+✔ useGlobalStyle api
+☐ useMedia api
 
 ☐ plguin, custom your compile
+✔ compile rpx unit (a unit for webapp, relative iphone6 width [750px])
 ☐ color palette
 
-☐ compile rpx unit (The width of the screen / 750 in phone, rpx / 2 in pc)
-☐ compile auto add browser prefix if need
-☐ @keyframes support
+✔ compile auto add browser prefix if need
+✔ @keyframes support
+✔ @media supprot
