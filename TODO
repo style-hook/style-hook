@@ -2,6 +2,7 @@
 ✔ useModuleStyle api
 ✔ useGlobalStyle api
 ☐ useMedia api
+☐ scoped style api (need use with babel plugin)
 
 ☐ plguin, custom your compile
 ✔ compile rpx unit (a unit for webapp, relative iphone6 width [750px])
