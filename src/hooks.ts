@@ -4,6 +4,12 @@ import ClassName from './ClassName'
 import StyleSheetsManager from './StyleSheetsManager'
 import css from './css'
 
+function useCss(template: TemplateStringsArray, ...substitutions: any[]) {
+  const sourceCode = css(template, ...substitutions)
+  const className = useMemo(() => ClassName(sourceCode), substitutions)
+  return { sourceCode, className }
+}
+
 function useStyleCode(id: string, getCode: () => string) {
   useLayoutEffect(() => {
     StyleSheetsManager.useStyle(id, getCode)
@@ -12,8 +18,7 @@ function useStyleCode(id: string, getCode: () => string) {
 }
 
 export function useStyle(template: TemplateStringsArray, ...substitutions: any[]) {
-  const sourceCode = css(template, ...substitutions)
-  const className = ClassName(sourceCode)
+  const { sourceCode, className } = useCss(template, ...substitutions)
   useStyleCode(className, () => (
     compile(sourceCode, `.${className}`)
   ))
@@ -21,26 +26,24 @@ export function useStyle(template: TemplateStringsArray, ...substitutions: any[]
 }
 
 export function useGlobalStyle(template: TemplateStringsArray, ...substitutions: any[]) {
-  const sourceCode = css(template, ...substitutions)
-  const hash = ClassName(sourceCode)
+  const { sourceCode, className: hash } = useCss(template, ...substitutions)
   useStyleCode(`${hash}[global]`, () => (
     compile(sourceCode, '').replace(/(^|\})\{/, '$1html{')
   ))
 }
 
 export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]) {
-  let sourceCode = css(template, ...substitutions)
-  const hash = ClassName(sourceCode)
+  let { sourceCode, className: moduleName } = useCss(template, ...substitutions)
   const styles: any = useMemo(() => {
     const styles: {[name: string]: string} = {}
     sourceCode = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
-      const className = `${hash}-${$1}`
+      const className = `${moduleName}-${$1}`
       styles[$1] = className
       return `.${className}`
     })
     return styles
-  }, [hash])
-  useStyleCode(`${hash}[module]`, () => (
+  }, [moduleName])
+  useStyleCode(`${moduleName}[module]`, () => (
     compile(sourceCode, '')
   ))
   return styles
