@@ -1,0 +1,59 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "quotes": [1, "single"],
+    "semi": [1, "never"],
+    "indent": [1, 2, { "SwitchCase": 1 }],
+    "jsx-quotes": 1,
+    "space-before-blocks": 1,
+    "space-before-function-paren": [1, {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "object-curly-spacing": [1, "always"],
+    "array-bracket-spacing": [1, "never"],
+    "require-atomic-updates": 0,
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": [1],
+    "@typescript-eslint/member-delimiter-style": [ 1,
+      {
+        "multiline": {
+          "delimiter": "none"
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "react/no-children-prop": 0,
+    "react/no-unescaped-entities": 0,
+    "react/self-closing-comp": 1
+  }
+}

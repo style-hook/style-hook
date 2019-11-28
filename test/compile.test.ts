@@ -1,4 +1,4 @@
-import compile from "../src/compile"
+import compile from '../src/compile'
 
 test('compile with empty code', () => {
   const code = compile('', '#root')
@@ -88,7 +88,7 @@ describe('without semicolon in the end line', () => {
 })
 
 describe('with any selector', () => {
-  const sourceCode = `color:red`
+  const sourceCode = 'color:red'
   test('with tag selector', () => {
     const code = compile(sourceCode, 'html')
     expect(code).toBe('html{color:red;}')
@@ -102,7 +102,7 @@ describe('with any selector', () => {
     expect(code).toBe('#root{color:red;}')
   })
   test('without empty selector', () => {
-    const sourceCode = `body{background:#f8f8f8;}`
+    const sourceCode = 'body{background:#f8f8f8;}'
     const code = compile(sourceCode, '')
     expect(code).toBe('body{background:#f8f8f8;}')
   })
@@ -166,12 +166,12 @@ describe('@media test', () => {
 
 describe('rpx compile', () => {
   test('2rpx = 1px in iphone6', () => {
-    innerWidth = 375
+    (window as any).innerWidth = 375
     const code = compile('width:20rpx', '')
     expect(code).toContain('width:10px')
   })
   test('relative width 750rpx in any screen', () => {
-    innerWidth = 414
+    (window as any).innerWidth = 414
     const code = compile('width:20rpx', '')
     expect(code).toContain('width:11px')
   })

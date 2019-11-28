@@ -1,8 +1,0 @@
-{
-  "defaultSeverity": "warn",
-  "rules": {
-    "semicolon": [true, "never"],
-    "arrow-return-shorthand": [true, "multiline"]
-  },
-  "rulesDirectory": []
-}
