@@ -1,7 +1,3 @@
-const styleElement = document.createElement('style')
-styleElement.setAttribute('engine', '🎨style-hook')
-document.head.appendChild(styleElement)
-
 type Library = {
   [selector: string]: {
     node: Text
@@ -11,7 +7,16 @@ type Library = {
 
 export default {
   library: {} as Library,
-  element: styleElement,
+  get element() {
+    const styleElement = document.createElement('style')
+    styleElement.setAttribute('engine', '🎨style-hook')
+    document.head.appendChild(styleElement)
+    Object.defineProperty(this, 'element', {
+      writable: false,
+      value: styleElement
+    })
+    return styleElement
+  },
   createStyle(id: string, code: string) {
     const textNode = document.createTextNode(code)
     this.library[id] = { onLine: 0, node: textNode }
