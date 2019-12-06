@@ -1,6 +1,6 @@
 {
   "name": "style-hook",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "use css in js with react hook",
   "main": "dist/api.js",
   "keywords": [
@@ -20,7 +20,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "coverage": "jest --coverage",
-    "prepublishOnly": "tsc -p ."
+    "prepublishOnly": "yarn test; tsc -p ."
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",

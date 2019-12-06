@@ -3,7 +3,9 @@ class Colors extends Array<string> {
     return String(this[5])
   }
   toRGBA(opacity: number, i = 5) {
-    const color = this[i].slice(1)
+    let color = this[i].slice(1)
+    if (color.length === 3)
+      color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2]
     const Hex = (hex: string) => {
       hex = hex.toLowerCase()
       if (/[a-f]/.test(hex))

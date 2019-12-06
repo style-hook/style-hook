@@ -32,10 +32,13 @@ export function useGlobalStyle(template: TemplateStringsArray, ...substitutions:
   ))
 }
 
-export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]) {
+export interface CSSModule {
+  [className: string]: string
+}
+export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
   let { sourceCode, className: moduleName } = useCss(template, ...substitutions)
   const styles: any = useMemo(() => {
-    const styles: {[name: string]: string} = {}
+    const styles: CSSModule = {}
     sourceCode = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
       const className = `${moduleName}-${$1}`
       styles[$1] = className

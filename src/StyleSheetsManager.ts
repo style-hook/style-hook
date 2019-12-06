@@ -17,6 +17,10 @@ export default {
     })
     return styleElement
   },
+  addStyle(code: string) {
+    const textNode = document.createTextNode(code)
+    this.element.append(textNode)
+  },
   createStyle(id: string, code: string) {
     const textNode = document.createTextNode(code)
     this.library[id] = { onLine: 0, node: textNode }
