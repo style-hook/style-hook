@@ -1,4 +1,4 @@
-import { createModuleStyle } from '../src/createStyle'
+import { createModuleStyle } from '../src/api'
 import StyleSheetsManager from '../src/StyleSheetsManager'
 
 const { element } = StyleSheetsManager
