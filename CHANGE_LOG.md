@@ -1,3 +1,12 @@
+# 1.1.4
+- support unit less like react style
+- support dynamic px
+- ignore illegal css rule
+
+# 1.1.3
+- add createModuleStyle api
+- add palette api
+
 # 1.1.0
 - use stylis as the css preprocessor
 - remove if scope support (stylis don't support this grammar)

@@ -9,5 +9,8 @@
 ✔ color palette
 
 ✔ compile auto add browser prefix if need
+✔ unit less plugin
+✔ dynamic number unit plugin
+✔ ignore illegal rule
 ✔ @keyframes support
 ✔ @media supprot
