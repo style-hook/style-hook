@@ -1,4 +1,9 @@
 import compile from '../src/compile'
+import StyleHook from '../src/api'
+
+beforeEach(() => {
+  StyleHook.DYNAMIC_PX = false
+})
 
 test('compile with empty code', () => {
   const code = compile('', '#root')
@@ -161,6 +166,49 @@ describe('@media test', () => {
       '.abc{color:blue;}',
       '}',
     ].join(''))
+  })
+})
+
+describe('unit less plugin', () => {
+  test('add px unit when unit less', () => {
+    const code = compile('width:20', '')
+    expect(code).toContain('width:20px')
+  })
+  test('add px unit when value is float', () => {
+    const code = compile('width:2.5', '')
+    expect(code).toContain('width:2.5px')
+  })
+  test('add px unit when value is start with `.`', () => {
+    const code = compile('width:.5', '')
+    expect(code).toContain('width:.5px')
+  })
+  test('dont\'t px unit when the property is unit less originally', () => {
+    const code = compile('flex:1', '')
+    expect(code).not.toContain('flex:1px')
+  })
+})
+
+describe('dynamic px plugin', () => {
+  test('1px = 1px in iphone6', () => {
+    // @ts-ignore
+    window.innerWidth = 375
+    StyleHook.DYNAMIC_PX = true
+    const code = compile('width:10px', '')
+    expect(code).toContain('width:10px')
+  })
+  test('relative width 375px in other mobile screen', () => {
+    // @ts-ignore
+    window.innerWidth = 320
+    StyleHook.DYNAMIC_PX = true
+    const code = compile('width:100px', '')
+    expect(code).toContain('width:85px')
+  })
+  test('1px = 1px in PC screen', () => {
+    // @ts-ignore
+    window.innerWidth = 1920
+    StyleHook.DYNAMIC_PX = true
+    const code = compile('width:100px', '')
+    expect(code).toContain('width:100px')
   })
 })
 
