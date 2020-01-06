@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { act } from 'react-dom/test-utils'
 import { useStyle, useGlobalStyle, useModuleStyle } from '../src/hooks'
 import StyleSheetsManager from '../src/StyleSheetsManager'
+import options from '../src/options'
 
 let container: HTMLDivElement
 const styleEl = StyleSheetsManager.element
@@ -102,5 +103,28 @@ describe('useModuleStyle', () => {
     Object.keys(styles).forEach(key => {
       expect(styleHTML).toContain(`.${styles[key]}`)
     })
+  })
+})
+
+describe('window resize', () => {
+  function resizeWidth(width: number) {
+    // @ts-ignore
+    window.innerWidth = width
+    window.dispatchEvent(new Event('resize'))
+  }
+  test('dynamic px will recount when window resize', () => {
+    function DynamicPx() {
+      const cName = useStyle`
+        width: 375px;
+      `
+      return <div className={cName} />
+    }
+    resizeWidth(375)
+    options.DYNAMIC_PX = true
+    render(<DynamicPx />)
+    expect(styleEl.textContent).toContain('width:375px')
+    act(() => { resizeWidth(320) })
+    expect(styleEl.textContent).toContain('width:320px')
+    options.DYNAMIC_PX = false
   })
 })

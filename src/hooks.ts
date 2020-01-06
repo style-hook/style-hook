@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo, useEffect, useState } from 'react'
 import compile from './compile'
 import ClassName from './ClassName'
 import StyleSheetsManager from './StyleSheetsManager'
@@ -17,9 +17,20 @@ function useStyleCode(id: string, getCode: () => string) {
   }, [id])
 }
 
+function useInnerWidth() {
+  const [width, setWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const updateWidth = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
+  return width
+}
+
 export function useStyle(template: TemplateStringsArray, ...substitutions: any[]) {
   const { sourceCode, className } = useCss(template, ...substitutions)
-  useStyleCode(className, () => (
+  const innerWidth = useInnerWidth()
+  useStyleCode(`${className}[#${innerWidth}]`, () => (
     compile(sourceCode, `.${className}`)
   ))
   return className
@@ -27,7 +38,8 @@ export function useStyle(template: TemplateStringsArray, ...substitutions: any[]
 
 export function useGlobalStyle(template: TemplateStringsArray, ...substitutions: any[]) {
   const { sourceCode, className: hash } = useCss(template, ...substitutions)
-  useStyleCode(`${hash}[global]`, () => (
+  const innerWidth = useInnerWidth()
+  useStyleCode(`${hash}[global][#${innerWidth}]`, () => (
     compile(sourceCode, '').replace(/(^|\})\{/, '$1html{')
   ))
 }
@@ -37,6 +49,7 @@ export interface CSSModule {
 }
 export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
   let { sourceCode, className: moduleName } = useCss(template, ...substitutions)
+  const innerWidth = useInnerWidth()
   const styles: any = useMemo(() => {
     const styles: CSSModule = {}
     sourceCode = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
@@ -46,7 +59,7 @@ export function useModuleStyle(template: TemplateStringsArray, ...substitutions:
     })
     return styles
   }, [moduleName])
-  useStyleCode(`${moduleName}[module]`, () => (
+  useStyleCode(`${moduleName}[module][#${innerWidth}]`, () => (
     compile(sourceCode, '')
   ))
   return styles
