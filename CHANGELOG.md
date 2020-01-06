@@ -1,3 +1,7 @@
+# 1.1.5
+- fix: dynamic px not recount when window resize
+- feat: release memory when no one use style
+
 # 1.1.4
 - support unit less like react style
 - support dynamic px
