@@ -169,6 +169,13 @@ describe('@media test', () => {
   })
 })
 
+describe('ignore illegal rule plugin', () => {
+  test('don\'t have value', () => {
+    const code = compile('width:', '')
+    expect(code).not.toContain('width')
+  })
+})
+
 describe('unit less plugin', () => {
   test('add px unit when unit less', () => {
     const code = compile('width:20', '')

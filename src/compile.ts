@@ -2,6 +2,13 @@ import stylis from 'stylis'
 import { MediaQuery } from './media'
 import options from './options'
 
+/** ignore illegal rule */
+stylis.use((context, content) => {
+  if (context !== 1) return
+  const [, value] = content.split(':')
+  if (!value) return ''
+})
+
 /** unit less plugin */
 stylis.use((context, content) => {
   if (context !== 1) return
