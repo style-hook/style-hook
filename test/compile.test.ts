@@ -221,17 +221,33 @@ describe('dynamic px plugin', () => {
     const code = compile('width:100px', '')
     expect(code).toContain('width:100px')
   })
+  test('work with unit less', () => {
+    // @ts-ignore
+    window.innerWidth = 320
+    StyleHook.DYNAMIC_PX = true
+    const code = compile('width:100', '')
+    expect(code).toContain('width:85px')
+  })
+  test('don\'t effect rpx', () => {
+    // @ts-ignore
+    window.innerWidth = 320
+    StyleHook.DYNAMIC_PX = true
+    const code = compile('width:200rpx', '')
+    expect(code).toContain('width:85px')
+  })
 })
 
 describe('rpx compile', () => {
   test('2rpx = 1px in iphone6', () => {
-    (window as any).innerWidth = 375
+    // @ts-ignore
+    window.innerWidth = 375
     const code = compile('width:20rpx', '')
     expect(code).toContain('width:10px')
   })
   test('relative width 750rpx in any screen', () => {
-    (window as any).innerWidth = 414
-    const code = compile('width:20rpx', '')
-    expect(code).toContain('width:11px')
+    // @ts-ignore
+    window.innerWidth = 320
+    const code = compile('width:200rpx', '')
+    expect(code).toContain('width:85px')
   })
 })
