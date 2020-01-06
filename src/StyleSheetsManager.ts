@@ -36,7 +36,12 @@ export default {
   unUseStyle(id: string) {
     const style = this.library[id]
     style.onLine --
-    if(style.onLine === 0)
+    if (style.onLine === 0) {
       style.node.remove()
+      setTimeout(() => { // anti-shake
+        if (style.onLine === 0)
+          delete this.library[id] // release memory
+      }, 1000)
+    }
   }
 }

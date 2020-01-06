@@ -56,11 +56,30 @@ describe('use different codes', () => {
   })
 })
 
-describe('lazy compile', () => {
+describe('cache compile', () => {
+  test('only compile once if the style id is same', () => {
+    delete StyleSheetsManager.library.abcd
+    const compile = jest.fn(() => '.abcd{color:red;}')
+    StyleSheetsManager.useStyle('abcd', compile)
+    StyleSheetsManager.useStyle('abcd', compile)
+    StyleSheetsManager.unUseStyle('abcd')
+    StyleSheetsManager.unUseStyle('abcd')
+    expect(compile).toBeCalledTimes(1)
+  })
   test('keep the node in the library when offline', () => {
     StyleSheetsManager.useStyle('abcd', () => '.abcd{color:red;}')
     StyleSheetsManager.unUseStyle('abcd')
     expect(StyleSheetsManager.library.abcd.node).toBeDefined()
     expect(StyleSheetsManager.library.abcd.onLine).toBe(0)
+  })
+  test('delete the node from th library when offline and then no one use it in 1s', () => {
+    StyleSheetsManager.useStyle('abcd', () => '.abcd{color:red;}')
+    StyleSheetsManager.unUseStyle('abcd')
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        expect(StyleSheetsManager.library.abcd).toBeUndefined()
+        resolve()
+      }, 1000)
+    })
   })
 })
