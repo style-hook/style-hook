@@ -60,7 +60,9 @@ stylis.use((context, content) => {
     'stroke-width',
   ]
   const [name, value] = content.split(':')
-  if (!isUnitlessNumber.includes(name) && /^(\d+)?\.?\d+$/.test(value))
+  if (isUnitlessNumber.includes(name)) return
+  if (value === '0') return
+  if (/^(\d+)?\.?\d+$/.test(value))
     return `${name}:${value}px`
 })
 

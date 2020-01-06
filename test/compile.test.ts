@@ -189,7 +189,11 @@ describe('unit less plugin', () => {
     const code = compile('width:.5', '')
     expect(code).toContain('width:.5px')
   })
-  test('dont\'t px unit when the property is unit less originally', () => {
+  test('don\'t add px width zero', () => {
+    const code = compile('width:0', '')
+    expect(code).not.toContain('width:0px')
+  })
+  test('don\'t add px unit when the property is unit less originally', () => {
     const code = compile('flex:1', '')
     expect(code).not.toContain('flex:1px')
   })
