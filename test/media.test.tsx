@@ -5,28 +5,35 @@ import { MediaQuery } from '../src/media'
 
 describe('media break point toString', () => {
   test('XS', () => {
-    expect(`${MediaQuery.XS}`)
-      .toBe(`max-width: ${MediaQuery.XS.maxWidth}px`)
+    expect(`${MediaQuery.XS}`).toMatchSnapshot()
   })
   test('S', () => {
-    expect(`${MediaQuery.S}`)
-      .toBe(`min-width: ${MediaQuery.S.minWidth}px`)
+    expect(`${MediaQuery.S}`).toMatchSnapshot()
   })
   test('M', () => {
-    expect(`${MediaQuery.M}`)
-      .toBe(`min-width: ${MediaQuery.M.minWidth}px`)
+    expect(`${MediaQuery.M}`).toMatchSnapshot()
   })
   test('L', () => {
-    expect(`${MediaQuery.L}`)
-      .toBe(`min-width: ${MediaQuery.L.minWidth}px`)
+    expect(`${MediaQuery.L}`).toMatchSnapshot()
   })
   test('XL', () => {
-    expect(`${MediaQuery.XL}`)
-      .toBe(`min-width: ${MediaQuery.XL.minWidth}px`)
+    expect(`${MediaQuery.XL}`).toMatchSnapshot()
   })
   test('XXL', () => {
-    expect(`${MediaQuery.XXL}`)
-      .toBe(`min-width: ${MediaQuery.XXL.minWidth}px`)
+    expect(`${MediaQuery.XXL}`).toMatchSnapshot()
+  })
+
+  test('media query range', () => {
+    expect(MediaQuery.range('XS'))
+  })
+})
+
+describe('media query range', () => {
+  test('second param is undefined', () => {
+    expect(MediaQuery.range('XS')).toBe(MediaQuery.XS.toString())
+  })
+  test('range between XS and S', () => {
+    expect(MediaQuery.range('XS', 'S')).toMatchSnapshot()
   })
 })
 

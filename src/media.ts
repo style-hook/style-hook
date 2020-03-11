@@ -40,32 +40,62 @@ export function MediaQuery(props: React.PropsWithChildren<MediaQueryProps>) {
     ? React.createElement(React.Fragment, {}, props.children )
     : null
 }
-/** Extra small devices (portrait phones, less than 576px) */
-MediaQuery.XS = { maxWidth: 576 }
-/** Small devices (landscape phones, 576px and up) */
-MediaQuery.S = { minWidth: 576 }
-/** Medium devices (tablets, 768px and up) */
-MediaQuery.M = { minWidth: 768 }
-/** Large devices (desktops, 992px and up) */
-MediaQuery.L = { minWidth: 992 }
-/** Extra large devices (large desktops, 1200px and up) */
-MediaQuery.XL = { minWidth: 1200 }
-/** Very very large devices (1K/2K/... desktops, 1920px and up) */
-MediaQuery. XXL = { minWidth: 1920 }
 
-{
-  function toMediaQueryString(this: MediaQueryProps) {
-    if (typeof this.minWidth === 'number')
-      return `min-width: ${this.minWidth}px`
-    if (typeof this.maxWidth === 'number')
-      return `max-width: ${this.maxWidth}px`
-    return ''
+
+type ScreenSize = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
+class Screen {
+  static sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+  static breakPoints = [576, 768, 992, 1200, 1920]
+  size!: ScreenSize
+  minWidth = 0
+  maxWidth = Infinity
+  constructor(size: ScreenSize) {
+    const i = Screen.sizes.indexOf(size)
+    this.size = size
+    if (i !== -1) {
+      if (size !== 'XS')
+        this.minWidth = Screen.breakPoints[i - 1]
+      if (size !== 'XXL')
+        this.maxWidth = Screen.breakPoints[i] - 1
+    }
   }
-  ['XS', 'S', 'M', 'L', 'XL', 'XXL'].forEach((key) => {
-    Object.defineProperty(
-      (MediaQuery as any)[key],
-      'toString',
-      { enumerable: false, value: toMediaQueryString }
-    )
+  toString() {
+    const bebabCase = (name: string) => name.replace(/[A-Z]/g, $ => `-${$.toLowerCase()}`)
+    return `@media screen ${
+      (<('minWidth'|'maxWidth')[]>['minWidth', 'maxWidth'])
+        .filter(property => ![0, Infinity].includes(this[property]))
+        .map(property => `and (${bebabCase(property)}:${this[property]}px)`)
+        .join(' ')
+    }`
+  }
+}
+
+/** Extra small devices (portrait phones, less than 576px) */
+MediaQuery.XS = new Screen('XS')
+/** Small devices (landscape phones, 576px and up, but less than 768px) */
+MediaQuery.S = new Screen('S')
+/** Medium devices (tablets, 768px and up, but less than 992px) */
+MediaQuery.M = new Screen('M')
+/** Large devices (desktops, 992px and up, but less than 1200px) */
+MediaQuery.L = new Screen('L')
+/** Extra large devices (large desktops, 1200px and up, but less than 1920px) */
+MediaQuery.XL = new Screen('XL')
+/** Very very large devices (1K/2K/... desktops, 1920px and up) */
+MediaQuery. XXL = new Screen('XXL')
+
+/** select the range between the screen */
+MediaQuery.range = function (a: ScreenSize, b?: ScreenSize) {
+  if (typeof b === 'undefined')
+    return MediaQuery[a].toString()
+  const minWidth = Math.min(
+    MediaQuery[a].minWidth,
+    MediaQuery[b].minWidth,
+  )
+  const maxWidth = Math.max(
+    MediaQuery[a].maxWidth,
+    MediaQuery[b].maxWidth,
+  )
+  return Screen.prototype.toString.call({
+    minWidth, maxWidth
   })
 }

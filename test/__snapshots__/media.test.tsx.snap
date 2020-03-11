@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`media break point toString L 1`] = `"@media screen and (min-width:992px) and (max-width:1199px)"`;
+
+exports[`media break point toString M 1`] = `"@media screen and (min-width:768px) and (max-width:991px)"`;
+
+exports[`media break point toString S 1`] = `"@media screen and (min-width:576px) and (max-width:767px)"`;
+
+exports[`media break point toString XL 1`] = `"@media screen and (min-width:1200px) and (max-width:1919px)"`;
+
+exports[`media break point toString XS 1`] = `"@media screen and (max-width:575px)"`;
+
+exports[`media break point toString XXL 1`] = `"@media screen and (min-width:1920px)"`;
+
+exports[`media query range range between XS and S 1`] = `"@media screen and (max-width:767px)"`;
