@@ -21,6 +21,11 @@ export default {
     const textNode = document.createTextNode(code)
     this.element.append(textNode)
   },
+  removeStyle(code: string) {
+    for (const node of this.element.childNodes)
+      if (node.textContent === code)
+        return this.element.removeChild(node)
+  },
   createStyle(id: string, code: string) {
     const textNode = document.createTextNode(code)
     this.library[id] = { onLine: 0, node: textNode }

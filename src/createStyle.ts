@@ -8,11 +8,17 @@ export function createModuleStyle(template: TemplateStringsArray, ...substitutio
   let sourceCode = css(template, ...substitutions)
   const moduleName = ClassName(sourceCode)
   const styles: CSSModule = {}
-  const cssCode = compile(sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
-    const className = `${moduleName}-${$1}`
-    styles[$1] = className
-    return `.${className}`
-  }), '')
-  StyleSheetsManager.addStyle(cssCode)
+  let cssCode = ''
+  const updateStyle = () => {
+    if (cssCode) StyleSheetsManager.removeStyle(cssCode)
+    cssCode = compile(sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
+      const className = `${moduleName}-${$1}`
+      styles[$1] = className
+      return `.${className}`
+    }), '')
+    StyleSheetsManager.addStyle(cssCode)
+  }
+  updateStyle()
+  window.addEventListener('resize', updateStyle)
   return styles
 }
