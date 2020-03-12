@@ -1,6 +1,6 @@
 {
   "name": "style-hook",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "use css in js with react hook",
   "main": "dist/api.js",
   "keywords": [
@@ -19,8 +19,9 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
+    "build": "tsc -p .",
     "coverage": "jest --coverage",
-    "prepublishOnly": "yarn test; tsc -p ."
+    "prepublishOnly": "yarn test; yarn build"
   },
   "dependencies": {
     "stylis": "^3.5.4"

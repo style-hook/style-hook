@@ -1,3 +1,7 @@
+# 1.2.0
+- refactor: change `MediaQuery.XS` series toString result
+- feat: add `MediaQuery.range` api
+
 # 1.1.5
 - fix: dynamic px not recount when window resize
 - feat: release memory when no one use style
