@@ -1,3 +1,7 @@
+# 1.2.1
+- fix: useModule compile the source without module name after resize window
+- fix: resize window createModuleStyle don't reset
+
 # 1.2.0
 - refactor: change `MediaQuery.XS` series toString result
 - feat: add `MediaQuery.range` api
