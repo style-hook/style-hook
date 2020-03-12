@@ -79,7 +79,7 @@ describe('useGlobalStyle', () => {
 })
 
 describe('useModuleStyle', () => {
-  function ModuleStyle(props: {onStyles: (styles: any) => void}) {
+  function ModuleStyle(props: {onStyles?: (styles: any) => void}) {
     const styles = useModuleStyle`
       .a { color: blue }
       .b::after { color: blue }
@@ -88,7 +88,7 @@ describe('useModuleStyle', () => {
         .f { opacity: 0.3 }
       }
     `
-    props.onStyles(styles)
+    props.onStyles && props.onStyles(styles)
     return <></>
   }
   test('return module name mapping object', () => {
@@ -104,14 +104,22 @@ describe('useModuleStyle', () => {
       expect(styleHTML).toContain(`.${styles[key]}`)
     })
   })
+  test('keep style after resize width', () => {
+    resizeWidth(1920)
+    render(<ModuleStyle />)
+    const styleHTML = styleEl.innerHTML
+    act(() => resizeWidth(375))
+    expect(styleEl.innerHTML).toBe(styleHTML)
+  })
 })
 
+
+function resizeWidth(width: number) {
+  (window as any).innerWidth = width
+  window.dispatchEvent(new Event('resize'))
+}
+
 describe('window resize', () => {
-  function resizeWidth(width: number) {
-    // @ts-ignore
-    window.innerWidth = width
-    window.dispatchEvent(new Event('resize'))
-  }
   test('dynamic px will recount when window resize', () => {
     function DynamicPx() {
       const cName = useStyle`

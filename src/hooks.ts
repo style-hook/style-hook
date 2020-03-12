@@ -48,19 +48,19 @@ export interface CSSModule {
   [className: string]: string
 }
 export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
-  let { sourceCode, className: moduleName } = useCss(template, ...substitutions)
+  const { sourceCode, className: moduleName } = useCss(template, ...substitutions)
   const innerWidth = useInnerWidth()
-  const styles: any = useMemo(() => {
+  const [styles, sourceCodeWithModuleName] = useMemo(() => {
     const styles: CSSModule = {}
-    sourceCode = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
+    const sourceCodeWithModuleId = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
       const className = `${moduleName}-${$1}`
       styles[$1] = className
       return `.${className}`
     })
-    return styles
+    return [styles, sourceCodeWithModuleId]
   }, [moduleName])
   useStyleCode(`${moduleName}[module][#${innerWidth}]`, () => (
-    compile(sourceCode, '')
+    compile(sourceCodeWithModuleName, '')
   ))
   return styles
 }
