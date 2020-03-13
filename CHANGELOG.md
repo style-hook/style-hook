@@ -1,3 +1,7 @@
+# 1.2.2
+- remove: remove offline style cache feat.
+- fix: StyleSheetsManager remove style from library accidentally.
+
 # 1.2.1
 - fix: useModule compile the source without module name after resize window
 - fix: resize window createModuleStyle don't reset
