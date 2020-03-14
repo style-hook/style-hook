@@ -27,7 +27,7 @@ export function useMediaQuery(query: MediaQueryProps) {
     const handleResize = () => setMatch(mediaQuery(query))
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [query])
+  }, [])
   return match
 }
 
