@@ -3,6 +3,7 @@ import compile from './compile'
 import ClassName from './ClassName'
 import StyleSheetsManager from './StyleSheetsManager'
 import css from './css'
+import { getCSSModule } from './utils'
 
 function useCss(template: TemplateStringsArray, ...substitutions: any[]) {
   const sourceCode = css(template, ...substitutions)
@@ -50,17 +51,11 @@ export interface CSSModule {
 export function useModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
   const { sourceCode, className: moduleName } = useCss(template, ...substitutions)
   const innerWidth = useInnerWidth()
-  const [styles, sourceCodeWithModuleName] = useMemo(() => {
-    const styles: CSSModule = {}
-    const sourceCodeWithModuleId = sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
-      const className = `${moduleName}-${$1}`
-      styles[$1] = className
-      return `.${className}`
-    })
-    return [styles, sourceCodeWithModuleId]
+  const { styles, sourceCodeWithModuleId } = useMemo(() => {
+    return getCSSModule(sourceCode, moduleName)
   }, [moduleName])
   useStyleCode(`${moduleName}[module][#${innerWidth}]`, () => (
-    compile(sourceCodeWithModuleName, '')
+    compile(sourceCodeWithModuleId, '')
   ))
   return styles
 }

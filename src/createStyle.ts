@@ -3,22 +3,20 @@ import { CSSModule } from './hooks'
 import ClassName from './ClassName'
 import compile from './compile'
 import StyleSheetsManager from './StyleSheetsManager'
+import { getCSSModule } from './utils'
 
 export function createModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
   let sourceCode = css(template, ...substitutions)
-  const moduleName = ClassName(sourceCode)
-  const styles: CSSModule = {}
+  const cssModule: CSSModule = {}
   let cssCode = ''
   const updateStyle = () => {
     if (cssCode) StyleSheetsManager.removeStyle(cssCode)
-    cssCode = compile(sourceCode.replace(/\.([a-zA-Z_][-\w]*)/g, (_, $1) => {
-      const className = `${moduleName}-${$1}`
-      styles[$1] = className
-      return `.${className}`
-    }), '')
+    const { styles, sourceCodeWithModuleId } = getCSSModule(sourceCode)
+    Object.assign(cssModule, styles)
+    cssCode = compile(sourceCodeWithModuleId, '')
     StyleSheetsManager.addStyle(cssCode)
   }
   updateStyle()
   window.addEventListener('resize', updateStyle)
-  return styles
+  return cssModule
 }

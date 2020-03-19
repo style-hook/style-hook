@@ -111,6 +111,19 @@ describe('useModuleStyle', () => {
     act(() => resizeWidth(375))
     expect(styleEl.innerHTML).toBe(styleHTML)
   })
+  test('bug: #3 have error styles when have background image', () => {
+    let styles: any = {}
+    function ModuleStyle() {
+      styles = useModuleStyle `
+        .bg {
+          background: url(https://a.b.c.com/xxx.png);
+        }
+      `
+      return <></>
+    }
+    render(<ModuleStyle />)
+    expect(Object.keys(styles)).toEqual(['bg'])
+  })
 })
 
 
