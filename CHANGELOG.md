@@ -1,3 +1,7 @@
+# 1.2.3
+- fix: useMediaQuery sometime not work
+- fix: #3, write background-image in module style, background-image will not work.
+
 # 1.2.2
 - remove: remove offline style cache feat.
 - fix: StyleSheetsManager remove style from library accidentally.
