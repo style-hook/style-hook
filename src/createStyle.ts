@@ -1,12 +1,12 @@
 import css from './css'
 import { CSSModule } from './hooks'
-import ClassName from './ClassName'
 import compile from './compile'
 import StyleSheetsManager from './StyleSheetsManager'
-import { getCSSModule } from './utils'
+import { getCSSModule, isSSR } from './utils'
 
 export function createModuleStyle(template: TemplateStringsArray, ...substitutions: any[]): CSSModule {
   let sourceCode = css(template, ...substitutions)
+  if (isSSR) return getCSSModule(sourceCode).styles
   const cssModule: CSSModule = {}
   let cssCode = ''
   const updateStyle = () => {

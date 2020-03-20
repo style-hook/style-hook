@@ -13,3 +13,7 @@ export function getCSSModule(sourceCode: string, moduleName = ClassName(sourceCo
     sourceCodeWithModuleId,
   }
 }
+
+export const isSSR =
+  typeof window === 'undefined'
+  || typeof document === 'undefined'

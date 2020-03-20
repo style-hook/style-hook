@@ -7,6 +7,7 @@
 ☐ plguin, custom your compile
 ✔ compile rpx unit (a unit for webapp, relative iphone6 width [750px])
 ✔ color palette
+✔ ssr support
 
 ✔ compile auto add browser prefix if need
 ✔ unit less plugin

@@ -3,7 +3,7 @@ import compile from './compile'
 import ClassName from './ClassName'
 import StyleSheetsManager from './StyleSheetsManager'
 import css from './css'
-import { getCSSModule } from './utils'
+import { getCSSModule, isSSR } from './utils'
 
 function useCss(template: TemplateStringsArray, ...substitutions: any[]) {
   const sourceCode = css(template, ...substitutions)
@@ -12,6 +12,7 @@ function useCss(template: TemplateStringsArray, ...substitutions: any[]) {
 }
 
 function useStyleCode(id: string, getCode: () => string) {
+  if (isSSR) return
   useLayoutEffect(() => {
     StyleSheetsManager.useStyle(id, getCode)
     return () => StyleSheetsManager.unUseStyle(id)
@@ -19,6 +20,7 @@ function useStyleCode(id: string, getCode: () => string) {
 }
 
 function useInnerWidth() {
+  if (isSSR) return NaN
   const [width, setWidth] = useState(window.innerWidth)
   useEffect(() => {
     const updateWidth = () => setWidth(window.innerWidth)
