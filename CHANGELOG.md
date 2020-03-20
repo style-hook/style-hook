@@ -1,3 +1,6 @@
+# 1.3.0
+- feat: ssr support (tested in next.js)
+
 # 1.2.3
 - fix: useMediaQuery sometime not work
 - fix: #3, write background-image in module style, background-image will not work.
