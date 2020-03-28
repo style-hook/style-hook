@@ -20,6 +20,16 @@ or use yarn
 yarn add style-hook
 ```
 
+## minify css in js (recommend)
+add babel plugin to your .babelrc
+```json
+{
+  "plugins": [
+    "style-hook/babel"
+  ]
+}
+```
+
 # usage
 ## say hello world to get started
 ``` jsx
@@ -68,9 +78,6 @@ support by default
 
 # Highlight and IntelliSense (recommend)
 * [vscode extension](https://marketplace.visualstudio.com/items?itemName=coppy.style-hook)
-
-# compress es6 tagged template plugin (recommend)
-* [babel-plugin-style-hook](https://github.com/style-hook/babel-plugin-style-hook)
 
 # todo list
 see [TODO](./TODO)
