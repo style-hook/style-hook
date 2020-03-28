@@ -1,3 +1,6 @@
+# 1.3.2
+- babel plugin build in
+
 # 1.3.0
 - feat: ssr support (tested in next.js)
 

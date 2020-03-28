@@ -1,6 +1,6 @@
 {
   "name": "style-hook",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "use css in js with react hook",
   "main": "dist/api.js",
   "keywords": [
@@ -11,6 +11,7 @@
   ],
   "files": [
     "dist",
+    "babel.js",
     "README.md"
   ],
   "repository": "https://github.com/style-hook/style-hook",

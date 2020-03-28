@@ -79,9 +79,6 @@ support by default
 # Highlight and IntelliSense (recommend)
 * [vscode extension](https://marketplace.visualstudio.com/items?itemName=coppy.style-hook)
 
-# todo list
-see [TODO](./TODO)
-
 # support me
 if you like this project, star it, let more one know.
 
